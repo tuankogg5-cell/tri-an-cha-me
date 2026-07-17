@@ -300,14 +300,11 @@
         opacity: 0;
       }
       10% {
-        opacity: 0.55;
-      }
-      98% {
-        opacity: 0.55;
+        opacity: 0.7;
       }
       100% {
-        transform: translateY(-140vh);
-        opacity: 0;
+        transform: translateY(-145vh);
+        opacity: 0.7;
       }
     }
     
@@ -1116,15 +1113,24 @@
       "./sn.jpg",
       "./sn2.jpg",
       "./tet.jpg",
-      "./tet3.jpg"
+      "./tet3.jpg",
+      "./101.png",
+      "./6.jpg",
+      "./7.jpg",
+      "./8.jpg",
+      "./9.jpg"
     ];
     
     const photosContainer = document.getElementById('floating-photos-container');
     let photoIndex = 0;
     
-    // Divide screen into 5 columns to prevent overlaps
-    const columns = [5, 23, 41, 59, 77];
+    // Divide screen into 6 columns to prevent overlaps
+    const columns = [4, 20, 36, 52, 68, 84];
     let currentColumnIndex = 0;
+    
+    // Fixed duration for all photos to ensure they travel at the exact same speed
+    // This prevents faster photos from overtaking slower ones and vertical piling
+    const duration = 23; 
 
     function spawnPhoto() {
       if (photoSrcs.length === 0) return;
@@ -1138,20 +1144,18 @@
       const offset = Math.random() * 6 - 3; // -3% to +3% jitter
       const leftPos = Math.min(Math.max(baseLeft + offset, 2), 88);
       
-      const duration = Math.random() * 10 + 20; // Float duration between 20s and 30s
-      
       photoDiv.className = 'floating-photo pointer-events-none';
       photoDiv.style.width = `${size}px`;
       photoDiv.style.left = `${leftPos}%`;
       photoDiv.style.animation = `floatUp ${duration}s linear forwards`;
       
       const innerDiv = document.createElement('div');
-      innerDiv.className = 'bg-white dark:bg-neutral-800 p-2 pb-6 shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xs';
+      innerDiv.className = 'bg-white dark:bg-neutral-800 p-2.5 pb-7 shadow-2xl border border-neutral-200/60 dark:border-neutral-700/60 rounded-sm';
       innerDiv.style.transform = `rotate(${rotation}deg)`;
       
       const img = document.createElement('img');
       img.src = photoSrcs[photoIndex];
-      img.className = 'w-full h-auto object-cover rounded-2xs filter sepia-[5%]';
+      img.className = 'w-full h-auto object-cover rounded-xs filter sepia-[5%]';
       img.alt = 'Kỷ niệm gia đình';
       
       innerDiv.appendChild(img);
@@ -1170,12 +1174,12 @@
       }, duration * 1000 + 1500); // Wait 1.5 seconds after animation ends to ensure it's fully off-screen
     }
     
-    // Spawn a new photo every 1.5 seconds (more dense)
-    setInterval(spawnPhoto, 1500);
+    // Spawn a new photo every 1.8 seconds (dense but spaced out)
+    setInterval(spawnPhoto, 1800);
     
     // Spawn initial photos
     for (let i = 0; i < 7; i++) {
-      setTimeout(spawnPhoto, i * 600);
+      setTimeout(spawnPhoto, i * 850);
     }
 
     loadNotes();
