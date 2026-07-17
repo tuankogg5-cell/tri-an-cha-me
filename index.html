@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tri Ân Cha Mẹ - Con Yêu Bố Mẹ</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Trang web tri ân và gửi gắm những lời chúc, lời cảm ơn chân thành nhất từ con dành cho cha mẹ thân yêu.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fdf6f0',
+              100: '#f7e5d9',
+              200: '#f0caa9',
+              500: '#b85042',
+              600: '#a74336',
+              800: '#7a2d24',
+              900: '#2d0b13',
+            }
+          },
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            handwriting: ['Dancing Script', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(13, 4, 6, 0.95);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #b85042;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a74336;
+    }
+
+    /* 3D Envelope Animation Styles */
+    .envelope-wrapper {
+      position: relative;
+      height: 380px;
+      width: 100%;
+      max-width: 500px;
+      perspective: 1000px;
+    }
+
+    .envelope {
+      position: absolute;
+      width: 100%;
+      height: 250px;
+      bottom: 0;
+      background: #c96253;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      transform-style: preserve-3d;
+    }
+
+    .envelope:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Front Flaps */
+    .envelope::before {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      border-left: 250px solid transparent;
+      border-right: 250px solid transparent;
+      border-bottom: 125px solid #d46e60;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-radius: 0 0 8px 8px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 500px) {
+      .envelope::before {
+        border-left-width: 175px;
+        border-right-width: 175px;
+        border-bottom-width: 90px;
+      }
+      .envelope::after {
+        border-left-width: 175px;
+        border-top-width: 90px;
+        border-right-width: 175px;
+      }
+      .envelope-wrapper {
+        height: 340px;
+      }
+      .envelope {
+        height: 180px;
+      }
+    }
+
+    .envelope::after {
+      content: '';
+      position: absolute;
+      z-index: 11;
+      border-top: 130px solid transparent;
+      border-left: 250px solid #c0584b;
+      border-bottom: 125px solid transparent;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-radius: 0 0 0 8px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 500px) {
+      .envelope::after {
+        border-top-width: 95px;
+        border-left-width: 175px;
+        border-bottom-width: 90px;
+      }
+    }
+
+    /* Side Flap Right */
+    .envelope-right {
+      position: absolute;
+      z-index: 11;
+      border-top: 130px solid transparent;
+      border-right: 250px solid #c0584b;
+      border-bottom: 125px solid transparent;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-radius: 0 0 8px 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 500px) {
+      .envelope-right {
+        border-top-width: 95px;
+        border-right-width: 175px;
+        border-bottom-width: 90px;
+      }
+    }
+
+    /* Top Flap */
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 250px solid transparent;
+      border-right: 250px solid transparent;
+      border-top: 130px solid #b85042;
+      border-radius: 8px 8px 0 0;
+      transform-origin: top;
+      transition: transform 0.5s ease, z-index 0.3s ease;
+      z-index: 15;
+    }
+
+    @media (max-width: 500px) {
+      .flap {
+        border-left-width: 175px;
+        border-right-width: 175px;
+        border-top-width: 95px;
+      }
+    }
+
+    /* Letter */
+    .letter {
+      position: absolute;
+      left: 5%;
+      bottom: 5px;
+      width: 90%;
+      height: 90%;
+      background: #fdf6ee;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1) inset;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0.5s ease;
+      z-index: 5;
+      transform: translateY(0);
+      overflow-y: auto;
+      border: 1px solid #ebd9c5;
+    }
+
+    /* Open State Animations */
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+      z-index: 4;
+    }
+
+    .envelope.open .letter {
+      transform: translateY(-130px) scale(1.05);
+      z-index: 20;
+      height: 320px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 500px) {
+      .envelope.open .letter {
+        transform: translateY(-90px) scale(1.03);
+        height: 250px;
+      }
+    }
+
+    /* Wax Seal */
+    .wax-seal {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #e6b800 0%, #b38600 100%);
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      border: 2px solid #997300;
+    }
+
+    .wax-seal::before {
+      content: '';
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      border: 1.5px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+
+    .envelope.open .wax-seal {
+      transform: translateX(-50%) translateY(90px) scale(0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Custom Parchment Lines */
+    .parchment-lines {
+      background-image: linear-gradient(rgba(0,0,0,0) 0%, rgba(184, 80, 66, 0.08) 90%, rgba(184, 80, 66, 0.08) 100%);
+      background-size: 100% 28px;
+      line-height: 28px;
+    }
+
+    /* Vinyl Record Spin */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .spin-slow {
+      animation: spin 6s linear infinite;
+    }
+
+    .spin-paused {
+      animation-play-state: paused;
+    }
+
+    /* Glowing border animation */
+    .glow-border {
+      box-shadow: 0 0 15px rgba(184, 80, 66, 0.15);
+      transition: box-shadow 0.3s ease;
+    }
+    .glow-border:hover {
+      box-shadow: 0 0 25px rgba(184, 80, 66, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-brand-900 text-gray-100 font-sans transition-colors duration-500 overflow-x-hidden relative">
+
+  <!-- Fullscreen Floating Particles Canvas -->
+  <canvas id="canvas-particles" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- BACKGROUND MUSIC (Soothing Lullaby/Acoustic Melody) -->
+  <audio id="bg-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-brand-900/80 dark:bg-brand-50/80 backdrop-blur-md border-b border-brand-800/20 dark:border-brand-200/50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3 group">
+        <div class="p-2 bg-brand-500/10 rounded-full group-hover:bg-brand-500/20 transition-all">
+          <i data-lucide="heart" class="w-6 h-6 text-brand-500 fill-brand-500 animate-pulse"></i>
+        </div>
+        <span class="text-xl font-bold font-serif tracking-wider text-brand-100 dark:text-brand-900">
+          Tri Ân Cha Mẹ
+        </span>
+      </div>
+
+      <nav class="hidden md:flex space-x-8 text-sm font-semibold tracking-wider uppercase text-gray-300 dark:text-gray-600">
+        <a href="#hero" class="hover:text-brand-500 transition-colors">Trang Chủ</a>
+        <a href="#envelope-sec" class="hover:text-brand-500 transition-colors">Bức Thư Bí Mật</a>
+        <a href="#gratitude" class="hover:text-brand-500 transition-colors">Lời Biết Ơn</a>
+        <a href="#tribute" class="hover:text-brand-500 transition-colors">Gửi Cha Mẹ</a>
+        <a href="#wishes" class="hover:text-brand-500 transition-colors">Lời Chúc</a>
+        <a href="#message-wall" class="hover:text-brand-500 transition-colors">Bảng Yêu Thương</a>
+      </nav>
+
+      <div class="flex items-center space-x-4">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="p-2 bg-brand-800/50 dark:bg-brand-100 rounded-full text-brand-100 dark:text-brand-900 hover:scale-105 transition-transform" title="Đổi giao diện Sáng/Tối">
+          <i data-lucide="sun" id="sun-icon" class="w-5 h-5 hidden"></i>
+          <i data-lucide="moon" id="moon-icon" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Custom Vinyl Player Controller -->
+        <div id="vinyl-player" class="flex items-center space-x-3 bg-brand-800/40 dark:bg-brand-100/80 px-3 py-1.5 rounded-full border border-brand-500/20 shadow-md cursor-pointer hover:bg-brand-800/60 transition-all">
+          <div class="relative w-8 h-8 rounded-full bg-black flex items-center justify-center spin-slow spin-paused" id="vinyl-disk">
+            <!-- Vinyl Groove lines -->
+            <div class="absolute inset-1 rounded-full border border-neutral-800/40"></div>
+            <!-- Center label -->
+            <div class="w-3 h-3 rounded-full bg-brand-500 flex items-center justify-center">
+              <div class="w-1 h-1 rounded-full bg-white"></div>
+            </div>
+          </div>
+          <div class="text-left leading-none">
+            <p class="text-[10px] text-gray-400 dark:text-gray-500 font-semibold uppercase">Nhạc nền</p>
+            <span class="text-xs font-bold text-brand-100 dark:text-brand-800" id="player-status">Đang Tắt</span>
+          </div>
+          <button id="music-btn" class="p-1 bg-brand-500 rounded-full text-white">
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-white" id="music-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. HERO SECTION -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-6 overflow-hidden">
+    <!-- Glowing background blur elements -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/10 rounded-full filter blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full filter blur-[100px] pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto text-center relative z-10 space-y-8">
+      <div class="inline-flex items-center space-x-2 px-4 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full text-brand-200 dark:text-brand-800 text-xs md:text-sm font-semibold tracking-widest uppercase animate-pulse">
+        <span>💝 Dành tặng Bố Mẹ kính yêu của con 💝</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold font-serif tracking-tight text-white dark:text-brand-900 leading-tight">
+        Nơi Con Gửi Gắm <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 via-brand-500 to-amber-300 dark:from-brand-800 dark:to-brand-500">Tấm Lòng Biết Ơn</span>
+      </h1>
+
+      <p class="text-base md:text-xl text-gray-300 dark:text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+        Đi khắp thế gian không ai tốt bằng Mẹ. Gánh nặng cuộc đời không ai khổ bằng Cha. <br>
+        Cảm ơn Bố Mẹ vì tất cả những hy sinh âm thầm suốt cuộc đời này.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a href="#envelope-sec" class="w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-full shadow-lg shadow-brand-900/30 hover:scale-105 transition-all text-center flex items-center justify-center space-x-2">
+          <span>Khám phá bức thư bí mật</span>
+          <i data-lucide="mail-open" class="w-5 h-5"></i>
+        </a>
+        <a href="#tribute" class="w-full sm:w-auto px-8 py-4 bg-transparent hover:bg-white/5 dark:hover:bg-brand-500/5 border-2 border-brand-500/30 text-brand-100 dark:text-brand-900 font-bold rounded-full hover:border-brand-500 transition-all text-center">
+          Lời chúc gửi Bố Mẹ
+        </a>
+      </div>
+
+      <!-- Arrow down indicator -->
+      <div class="absolute bottom-[-60px] left-1/2 -translate-x-1/2 animate-bounce">
+        <a href="#envelope-sec" class="p-2 bg-brand-800/30 rounded-full block border border-brand-500/10 text-brand-200 hover:text-white">
+          <i data-lucide="chevron-down" class="w-6 h-6"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. INTERACTIVE ENVELOPE SECTION -->
+  <section id="envelope-sec" class="py-24 bg-black/30 dark:bg-brand-100/30 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 space-y-4">
+        <h2 class="text-3xl md:text-5xl font-bold font-serif text-white dark:text-brand-900">Bức Thư Niêm Phong</h2>
+        <div class="w-24 h-1 bg-brand-500 mx-auto rounded-full"></div>
+        <p class="text-gray-400 dark:text-gray-500 text-sm md:text-base max-w-md mx-auto">
+          Nhấp vào con dấu sáp vàng để mở phong thư chứa đựng lá thư tay gửi ngàn lời yêu thương từ tận đáy lòng con.
+        </p>
+      </div>
+
+      <div class="flex justify-center items-center">
+        <div class="envelope-wrapper">
+          <div class="envelope" id="love-envelope" onclick="toggleEnvelope()">
+            <div class="flap"></div>
+            <!-- Wax Seal Button -->
+            <div class="wax-seal" id="wax-seal" onclick="event.stopPropagation(); toggleEnvelope();">
+              <i data-lucide="heart" class="w-7 h-7 text-white fill-white animate-pulse"></i>
+            </div>
+            <!-- Right Flap (to fix overlapping issues) -->
+            <div class="envelope-right"></div>
+            
+            <!-- The Secret Letter -->
+            <div class="letter text-brand-900" id="letter-content" onclick="event.stopPropagation();">
+              <div class="parchment-lines h-full font-handwriting text-lg md:text-xl pr-1 space-y-4 text-justify select-text">
+                <p class="font-bold text-xl md:text-2xl text-brand-800 text-center font-serif py-2">
+                  Bố Mẹ yêu thương của con,
+                </p>
+                <p>
+                  Hôm nay con ngồi viết những dòng này, không vì dịp đặc biệt nào cả, chỉ vì trái tim con ngập tràn lòng biết ơn khi nghĩ về gia đình mình.
+                </p>
+                <p>
+                  Cảm ơn Bố vì những giọt mồ hôi lặng lẽ nơi công sở, những bài học nghiêm khắc nhưng đong đầy lòng bao dung dẫn lối cho con.
+                </p>
+                <p>
+                  Cảm ơn Mẹ vì những bữa cơm ấm nóng mỗi buổi chiều, vì những lo lắng mất ngủ mỗi lần con ốm đau, và vì vòng tay dịu dàng luôn đón nhận con trở về.
+                </p>
+                <p>
+                  Con biết mình chưa hoàn hảo, có đôi lúc con làm Bố Mẹ buồn lòng, nhưng tình yêu và sự bao dung của Bố Mẹ luôn là bến đỗ bình yên nhất của đời con. Con hứa sẽ cố gắng sống thật tốt, thật hạnh phúc để Bố Mẹ luôn tự hào.
+                </p>
+                <p class="text-right font-bold text-brand-800 mt-6">
+                  Con yêu của Bố Mẹ. ❤️
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <button onclick="toggleEnvelope()" class="px-6 py-2.5 bg-brand-800/40 dark:bg-white border border-brand-500/20 hover:border-brand-500 text-brand-200 dark:text-brand-800 font-semibold rounded-full hover:scale-105 transition-all text-sm inline-flex items-center space-x-2" id="envelope-control-btn">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          <span id="envelope-btn-text">Bấm vào đây để mở thư</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GRATITUDE TIMELINE -->
+  <section id="gratitude" class="py-24 relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-20 space-y-4">
+        <span class="text-brand-500 font-bold uppercase tracking-widest text-xs">Hành trình dưỡng dục</span>
+        <h2 class="text-3xl md:text-5xl font-bold font-serif text-white dark:text-brand-900">Những Tảo Tần Của Cha Mẹ</h2>
+        <div class="w-24 h-1 bg-brand-500 mx-auto rounded-full"></div>
+        <p class="text-gray-400 dark:text-gray-500 max-w-lg mx-auto text-sm md:text-base">
+          Nhìn lại chặng đường con lớn khôn, mỗi bước đi đều được in hằn bóng dáng tảo tần, hy sinh âm thầm của bố mẹ.
+        </p>
+      </div>
+
+      <!-- Vertical Timeline -->
+      <div class="relative border-l-2 border-brand-800/50 dark:border-brand-200 md:translate-x-1/2 md:border-l-2 md:-translate-x-none max-w-3xl mx-auto space-y-12">
+        <!-- Milestone 1 -->
+        <div class="relative pl-8 md:pl-0">
+          <div class="absolute -left-[11px] top-1.5 w-6 h-6 rounded-full bg-brand-500 border-4 border-brand-900 dark:border-white shadow-lg flex items-center justify-center">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          <div class="md:w-[45%] md:absolute md:-left-[48%] md:text-right md:top-0">
+            <span class="inline-block px-3 py-1 bg-brand-500/10 text-brand-300 dark:text-brand-800 text-xs font-bold rounded-full mb-2">Giai đoạn 1</span>
+            <h3 class="text-xl font-bold text-white dark:text-brand-900 font-serif">Thời Thơ Ấu & Nâng Bước</h3>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mt-2 leading-relaxed">
+              Bố ôm con vào lòng, Mẹ hát ru con ngủ. Những bước đi chập chững đầu đời được nâng đỡ bởi đôi bàn tay chi chít vết chai, ấm áp của bố mẹ. Con được nuôi lớn trong tình thương vô điều kiện.
+            </p>
+          </div>
+          <!-- Spacer for desktop layouts -->
+          <div class="hidden md:block h-32"></div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="relative pl-8 md:pl-0">
+          <!-- Timeline point -->
+          <div class="absolute -left-[11px] top-1.5 w-6 h-6 rounded-full bg-amber-500 border-4 border-brand-900 dark:border-white shadow-lg flex items-center justify-center">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          <div class="md:w-[45%] md:ml-[8%]">
+            <span class="inline-block px-3 py-1 bg-amber-500/10 text-amber-300 dark:text-amber-800 text-xs font-bold rounded-full mb-2">Giai đoạn 2</span>
+            <h3 class="text-xl font-bold text-white dark:text-brand-900 font-serif">Những Khuya Sớm Tảo Tần</h3>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mt-2 leading-relaxed">
+              Những ngày mưa gió hay nắng cháy da thịt, bố mẹ chưa bao giờ than vãn nửa lời. Từng đồng tiền chắt chiu, từng giọt mồ hôi rơi xuống chỉ mong con có được manh áo ấm, sách vở bằng bạn bằng bè.
+            </p>
+          </div>
+          <div class="hidden md:block h-32"></div>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="relative pl-8 md:pl-0">
+          <div class="absolute -left-[11px] top-1.5 w-6 h-6 rounded-full bg-emerald-500 border-4 border-brand-900 dark:border-white shadow-lg flex items-center justify-center">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          <div class="md:w-[45%] md:absolute md:-left-[48%] md:text-right md:top-0">
+            <span class="inline-block px-3 py-1 bg-emerald-500/10 text-emerald-300 dark:text-emerald-800 text-xs font-bold rounded-full mb-2">Giai đoạn 3</span>
+            <h3 class="text-xl font-bold text-white dark:text-brand-900 font-serif">Chắp Cánh Ước Mơ</h3>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mt-2 leading-relaxed">
+              Khi con bắt đầu bước ra thế giới rộng lớn, bố mẹ lùi lại phía sau, làm hậu phương vững chắc. Bố dặn con phải kiên cường trước sóng gió, Mẹ dặn con phải biết yêu thương và trân trọng bản thân.
+            </p>
+          </div>
+          <div class="hidden md:block h-32"></div>
+        </div>
+
+        <!-- Milestone 4 -->
+        <div class="relative pl-8 md:pl-0">
+          <div class="absolute -left-[11px] top-1.5 w-6 h-6 rounded-full bg-brand-500 border-4 border-brand-900 dark:border-white shadow-lg flex items-center justify-center">
+            <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+          </div>
+          <div class="md:w-[45%] md:ml-[8%]">
+            <span class="inline-block px-3 py-1 bg-brand-500/10 text-brand-300 dark:text-brand-800 text-xs font-bold rounded-full mb-2">Hiện tại & Tương lai</span>
+            <h3 class="text-xl font-bold text-white dark:text-brand-900 font-serif">Điểm Tựa Bình Yên</h3>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mt-2 leading-relaxed">
+              Cuộc sống xô bồ đôi lúc làm con mệt mỏi, nhưng con biết rằng chỉ cần quay đầu lại, nhà và bố mẹ vẫn luôn ở đó, dang rộng vòng tay chào đón con bằng sự bình yên, ấm áp nhất.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. DEDICATED TRIBUTE TO FATHER & MOTHER -->
+  <section id="tribute" class="py-24 bg-brand-800/10 dark:bg-brand-50 relative overflow-hidden">
+    <div class="absolute inset-0 bg-radial-gradient from-brand-500/5 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-16 space-y-4">
+        <h2 class="text-3xl md:text-5xl font-bold font-serif text-white dark:text-brand-900">Những Lời Cảm Ơn Sâu Sắc</h2>
+        <div class="w-24 h-1 bg-brand-500 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Father Tribute Card -->
+        <div class="glow-border bg-black/40 dark:bg-white rounded-3xl p-8 md:p-10 border border-brand-500/10 shadow-2xl relative overflow-hidden group">
+          <!-- Top gold accent line -->
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 to-brand-500"></div>
+          
+          <div class="flex items-start justify-between mb-8">
+            <div class="space-y-1">
+              <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Kính gửi</span>
+              <h3 class="text-2xl md:text-3xl font-bold font-serif text-brand-100 dark:text-brand-900">Bố Kính Yêu</h3>
+            </div>
+            <div class="p-3 bg-brand-500/10 rounded-2xl text-brand-500">
+              <i data-lucide="shield" class="w-7 h-7"></i>
+            </div>
+          </div>
+
+          <blockquote class="text-gray-300 dark:text-gray-600 text-sm md:text-base leading-relaxed italic mb-8 border-l-2 border-brand-500/30 pl-4">
+            "Bố luôn yêu thương con theo cách lặng lẽ nhất. Tình thương của Bố không thể hiện qua lời nói ngọt ngào, mà qua đôi vai gầy gánh vác gia đình, qua những vết chai sần trên tay và ánh mắt nghiêm nghị đầy kỳ vọng dành cho con."
+          </blockquote>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3 text-xs md:text-sm text-gray-400 dark:text-gray-500">
+              <i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>
+              <span>Cảm ơn Bố vì sự che chở vững chãi trước giông bão cuộc đời.</span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs md:text-sm text-gray-400 dark:text-gray-500">
+              <i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>
+              <span>Cảm ơn Bố vì đã dạy con sự kiên định, tự lập và dũng cảm.</span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs md:text-sm text-gray-400 dark:text-gray-500">
+              <i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>
+              <span>Cảm ơn Bố vì luôn tin tưởng con ngay cả khi con thất bại.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mother Tribute Card -->
+        <div class="glow-border bg-black/40 dark:bg-white rounded-3xl p-8 md:p-10 border border-brand-500/10 shadow-2xl relative overflow-hidden group">
+          <!-- Top rose accent line -->
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-500 to-rose-400"></div>
+
+          <div class="flex items-start justify-between mb-8">
+            <div class="space-y-1">
+              <span class="text-xs font-bold text-brand-500 uppercase tracking-widest">Kính gửi</span>
+              <h3 class="text-2xl md:text-3xl font-bold font-serif text-brand-100 dark:text-brand-900">Mẹ Yêu Thương</h3>
+            </div>
+            <div class="p-3 bg-brand-500/10 rounded-2xl text-brand-500">
+              <i data-lucide="sun" class="w-7 h-7 text-brand-500"></i>
+            </div>
+          </div>
+
+          <blockquote class="text-gray-300 dark:text-gray-600 text-sm md:text-base leading-relaxed italic mb-8 border-l-2 border-brand-500/30 pl-4">
+            "Tình thương của Mẹ bao la như biển khơi, ấm áp như ánh nắng sớm mai. Từ những bữa ăn gia đình đầm ấm đến lời khuyên bảo ân cần, Mẹ luôn là người lắng nghe, chở che và tha thứ mọi lỗi lầm của con mà không đòi hỏi đền đáp."
+          </blockquote>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3 text-xs md:text-sm text-gray-400 dark:text-gray-500">
+              <i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>
+              <span>Cảm ơn Mẹ vì dòng sữa ngọt lành và những đêm thức trắng chăm con.</span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs md:text-sm text-gray-400 dark:text-gray-500">
+              <i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>
+              <span>Cảm ơn Mẹ vì sự kiên nhẫn, dịu dàng dưỡng nuôi con thành người tốt.</span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs md:text-sm text-gray-400 dark:text-gray-500">
+              <i data-lucide="check-circle" class="w-4 h-4 text-brand-500"></i>
+              <span>Cảm ơn Mẹ vì vòng tay luôn mở rộng đón con về nhà sau mệt mỏi.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WISHES & SENDING LOVE INTERACTIVE SECTION -->
+  <section id="wishes" class="py-24 relative overflow-hidden">
+    <!-- Glowing background elements -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-500/5 rounded-full filter blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10 space-y-12">
+      <div class="space-y-4">
+        <h2 class="text-3xl md:text-5xl font-bold font-serif text-white dark:text-brand-900">Lời Chúc Tốt Đẹp Nhất</h2>
+        <div class="w-24 h-1 bg-brand-500 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="bg-black/50 dark:bg-white/70 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-brand-500/10 shadow-2xl space-y-6">
+        <div class="text-2xl md:text-4xl text-brand-200 dark:text-brand-800 font-serif italic font-semibold">
+          "Chúc Cha Mẹ Vạn Sự An Yên"
+        </div>
+        <p class="text-gray-300 dark:text-gray-600 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+          Con cầu chúc cho Bố Mẹ luôn luôn mạnh khỏe, sống thật lâu bên con cháu. Mong rằng mỗi ngày trôi qua với Bố Mẹ đều ngập tràn nụ cười, niềm vui và sự an yên trong tâm hồn. Con thương Bố Mẹ nhiều lắm!
+        </p>
+
+        <!-- Dynamic interactive heart explosion button -->
+        <div class="pt-6">
+          <button onclick="explodeHearts(event)" class="px-8 py-4 bg-gradient-to-r from-brand-500 to-rose-500 hover:from-brand-600 hover:to-rose-600 text-white font-bold rounded-full shadow-lg shadow-brand-500/20 hover:scale-105 active:scale-95 transition-all inline-flex items-center space-x-2 relative overflow-hidden group">
+            <span class="relative z-10">Bấm Gửi Yêu Thương Tới Bố Mẹ</span>
+            <i data-lucide="heart" class="w-5 h-5 fill-white relative z-10 group-hover:scale-110 transition-transform"></i>
+          </button>
+          <p class="text-xs text-gray-500 mt-3 italic">Bấm nút để kích hoạt pháo hoa trái tim bay lên</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. INTERACTIVE LOVE WALL / MESSAGE BOARD -->
+  <section id="message-wall" class="py-24 bg-black/30 dark:bg-brand-50 relative border-t border-brand-800/20 dark:border-brand-200/50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16 space-y-4">
+        <h2 class="text-3xl md:text-5xl font-bold font-serif text-white dark:text-brand-900">Bảng Tin Yêu Thương</h2>
+        <div class="w-24 h-1 bg-brand-500 mx-auto rounded-full"></div>
+        <p class="text-gray-400 dark:text-gray-500 text-sm md:text-base max-w-lg mx-auto">
+          Lưu trữ những lời chúc và kỷ niệm ngọt ngào tại đây để Bố Mẹ luôn có thể đọc lại bất cứ lúc nào.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Message input form -->
+        <div class="bg-black/40 dark:bg-white rounded-3xl p-6 border border-brand-500/10 shadow-xl h-fit lg:col-span-1 space-y-6">
+          <h3 class="text-xl font-bold text-brand-100 dark:text-brand-900 font-serif flex items-center space-x-2">
+            <i data-lucide="pen-tool" class="w-5 h-5 text-brand-500"></i>
+            <span>Gửi lời nhắn mới</span>
+          </h3>
+
+          <form id="note-form" onsubmit="addNote(event)" class="space-y-4">
+            <div>
+              <label for="author" class="block text-xs font-semibold uppercase text-gray-400 dark:text-gray-500 mb-1">Tên của con (hoặc biệt danh)</label>
+              <input type="text" id="author" required placeholder="Ví dụ: Con út của mẹ, Út cưng..." class="w-full bg-brand-900/60 dark:bg-brand-50 text-white dark:text-brand-900 border border-brand-500/20 focus:border-brand-500 rounded-xl px-4 py-2.5 outline-none text-sm transition-all">
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-semibold uppercase text-gray-400 dark:text-gray-500 mb-1">Lời cảm ơn / Lời chúc</label>
+              <textarea id="message" rows="4" required placeholder="Viết những lời yêu thương gửi tới bố mẹ tại đây..." class="w-full bg-brand-900/60 dark:bg-brand-50 text-white dark:text-brand-900 border border-brand-500/20 focus:border-brand-500 rounded-xl px-4 py-2.5 outline-none text-sm transition-all resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-md transition-all text-sm flex items-center justify-center space-x-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Ghim Lên Bảng Yêu Thương</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Virtual Wall -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500" id="notes-count">0 Lời Nhắn</span>
+            <button onclick="clearNotes()" class="text-xs text-brand-500 hover:text-brand-600 underline font-semibold transition-colors flex items-center space-x-1">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Xóa tất cả</span>
+            </button>
+          </div>
+
+          <!-- Pinned Notes Container -->
+          <div id="notes-container" class="grid sm:grid-cols-2 gap-4 max-h-[500px] overflow-y-auto pr-2">
+            <!-- Dynamic notes loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-brand-900 dark:bg-brand-100 border-t border-brand-800/30 dark:border-brand-200/50 py-12 text-center text-xs md:text-sm text-gray-500 dark:text-gray-400 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 space-y-4">
+      <div class="flex justify-center space-x-2 text-brand-500">
+        <i data-lucide="heart" class="w-5 h-5 fill-brand-500"></i>
+        <i data-lucide="heart" class="w-5 h-5 fill-brand-500"></i>
+        <i data-lucide="heart" class="w-5 h-5 fill-brand-500"></i>
+      </div>
+      <p class="font-serif italic text-base text-gray-300 dark:text-brand-900">
+        "Con cảm ơn Cha Mẹ đã cho con một cuộc đời hạnh phúc."
+      </p>
+      <p class="text-[11px] text-gray-600">
+        &copy; 2026. Được thiết kế bằng tất cả lòng hiếu thảo và tình yêu thương.
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Elements
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
+    const vinylDisk = document.getElementById('vinyl-disk');
+    const playerStatus = document.getElementById('player-status');
+    const vinylPlayer = document.getElementById('vinyl-player');
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+
+    // Load music player interaction
+    let isMusicPlaying = false;
+    
+    function toggleMusic() {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        musicIcon.setAttribute('data-lucide', 'play');
+        musicIcon.innerHTML = '';
+        musicIcon.classList.remove('fill-none');
+        musicIcon.classList.add('fill-white');
+        vinylDisk.classList.add('spin-paused');
+        playerStatus.innerText = 'Đang Tắt';
+        isMusicPlaying = false;
+      } else {
+        bgMusic.play().then(() => {
+          musicIcon.setAttribute('data-lucide', 'pause');
+          musicIcon.innerHTML = '';
+          musicIcon.classList.remove('fill-white');
+          musicIcon.classList.add('fill-none');
+          vinylDisk.classList.remove('spin-paused');
+          playerStatus.innerText = 'Đang Phát';
+          isMusicPlaying = true;
+        }).catch(err => {
+          console.log("Không thể tự động phát nhạc do tương tác trình duyệt:", err);
+          alert("Nhấp chuột một lần nữa để phát bản nhạc nhẹ nhàng!");
+        });
+      }
+      lucide.createIcons();
+    }
+
+    vinylPlayer.addEventListener('click', toggleMusic);
+
+    // Theme Toggle Logic
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    if (currentTheme === 'light') {
+      document.documentElement.classList.add('dark'); // 'dark' class maps to light theme in config
+      sunIcon.classList.remove('hidden');
+      moonIcon.classList.add('hidden');
+    } else {
+      document.documentElement.classList.remove('dark');
+      sunIcon.classList.add('hidden');
+      moonIcon.classList.remove('hidden');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'light');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      }
+    });
+
+    // 3D Envelope Control
+    const envelope = document.getElementById('love-envelope');
+    const envelopeBtnText = document.getElementById('envelope-btn-text');
+
+    function toggleEnvelope() {
+      envelope.classList.toggle('open');
+      if (envelope.classList.contains('open')) {
+        envelopeBtnText.innerText = "Bấm vào để gấp thư lại";
+      } else {
+        envelopeBtnText.innerText = "Bấm vào để mở thư lại";
+      }
+    }
+
+    // CANVAS FLOATING PARTICLES (Hearts and sparkles)
+    const canvas = document.getElementById('canvas-particles');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const maxParticles = 65;
+
+    // Resize canvas
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Particle constructor
+    class Particle {
+      constructor(isExplosion = false, x, y) {
+        this.isExplosion = isExplosion;
+        this.x = x || Math.random() * canvas.width;
+        this.y = y || (isExplosion ? canvas.height : canvas.height + 50);
+        this.size = Math.random() * 8 + 4;
+        this.speedX = isExplosion ? (Math.random() - 0.5) * 8 : (Math.random() - 0.5) * 1.5;
+        this.speedY = isExplosion ? -(Math.random() * 8 + 4) : -(Math.random() * 1.5 + 0.5);
+        this.color = this.getRandomColor();
+        this.alpha = 1;
+        this.decay = isExplosion ? Math.random() * 0.015 + 0.008 : 0;
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = (Math.random() - 0.5) * 2;
+        this.type = Math.random() > 0.4 ? 'heart' : 'sparkle';
+      }
+
+      getRandomColor() {
+        const colors = [
+          'rgba(184, 80, 66, 1)',   // Rose/Brand Red
+          'rgba(229, 124, 130, 1)', // Soft Rose
+          'rgba(244, 218, 172, 1)', // Light Gold
+          'rgba(251, 191, 36, 1)',  // Gold
+          'rgba(244, 63, 94, 1)'    // Rose 500
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      drawHeart(x, y, size) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.beginPath();
+        ctx.moveTo(0, -size / 4);
+        ctx.bezierCurveTo(-size / 2, -size, -size, -size / 3, 0, size);
+        ctx.bezierCurveTo(size, -size / 3, size / 2, -size, 0, -size / 4);
+        ctx.closePath();
+        ctx.fillStyle = this.color.replace('1)', `${this.alpha})`);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      drawSparkle(x, y, size) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          ctx.lineTo(0, -size);
+          ctx.lineTo(size / 3, -size / 3);
+          ctx.rotate(Math.PI / 2);
+        }
+        ctx.closePath();
+        ctx.fillStyle = this.color.replace('1)', `${this.alpha})`);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.rotation += this.rotSpeed;
+
+        if (this.isExplosion) {
+          this.alpha -= this.decay;
+        } else {
+          if (this.y < -20) {
+            this.y = canvas.height + 20;
+            this.x = Math.random() * canvas.width;
+          }
+        }
+      }
+
+      draw() {
+        if (this.type === 'heart') {
+          this.drawHeart(this.x, this.y, this.size);
+        } else {
+          this.drawSparkle(this.x, this.y, this.size);
+        }
+      }
+    }
+
+    // Initialize particles
+    for (let i = 0; i < maxParticles; i++) {
+      particles.push(new Particle());
+    }
+
+    // Interactive heart explosion
+    function explodeHearts(e) {
+      const x = e.clientX || canvas.width / 2;
+      const y = e.clientY || canvas.height / 2;
+
+      for (let i = 0; i < 45; i++) {
+        particles.push(new Particle(true, x, y));
+      }
+    }
+
+    // Animation Loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw();
+
+        if (particles[i].isExplosion && particles[i].alpha <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // INTERACTIVE LOVE WALL / MESSAGE BOARD LOGIC
+    let notes = [];
+
+    function loadNotes() {
+      const storedNotes = localStorage.getItem('family_notes');
+      if (storedNotes) {
+        notes = JSON.parse(storedNotes);
+      } else {
+        notes = [
+          {
+            id: 1,
+            author: "Con Út Linh",
+            message: "Chúc Bố Mẹ luôn vui vẻ, tràn đầy sức khỏe. Con yêu Bố Mẹ nhiều lắm! Mong mọi điều bình an luôn đến với gia đình mình.",
+            date: "17/07/2026",
+            bg: "bg-amber-100 dark:bg-amber-50 text-neutral-800"
+          },
+          {
+            id: 2,
+            author: "Anh Hai Minh",
+            message: "Cảm ơn Ba Mẹ đã luôn yêu thương và dìu dắt tụi con lớn khôn. Con chúc Ba Mẹ ngày càng khỏe mạnh và tươi vui mỗi ngày.",
+            date: "17/07/2026",
+            bg: "bg-rose-100 dark:bg-rose-50 text-neutral-800"
+          }
+        ];
+        localStorage.setItem('family_notes', JSON.stringify(notes));
+      }
+      renderNotes();
+    }
+
+    function getRandomNoteBg() {
+      const bgs = [
+        'bg-amber-100 dark:bg-amber-50 border-amber-300 text-neutral-800',
+        'bg-rose-100 dark:bg-rose-50 border-rose-300 text-neutral-800',
+        'bg-emerald-100 dark:bg-emerald-50 border-emerald-300 text-neutral-800',
+        'bg-blue-100 dark:bg-blue-50 border-blue-300 text-neutral-800',
+        'bg-purple-100 dark:bg-purple-50 border-purple-300 text-neutral-800'
+      ];
+      return bgs[Math.floor(Math.random() * bgs.length)];
+    }
+
+    function renderNotes() {
+      const container = document.getElementById('notes-container');
+      const countSpan = document.getElementById('notes-count');
+      container.innerHTML = '';
+      countSpan.innerText = `${notes.length} Lời Nhắn`;
+
+      if (notes.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-12 text-gray-500 italic">
+            Chưa có lời nhắn nào được ghim. Hãy là người đầu tiên ghim lời chúc nhé!
+          </div>
+        `;
+        return;
+      }
+
+      notes.forEach((note) => {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = `p-5 rounded-2xl border-l-4 shadow-md flex flex-col justify-between hover:-translate-y-1 transition-all ${note.bg || 'bg-amber-100 text-neutral-800 border-amber-300'}`;
+        
+        noteDiv.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-brand-500 uppercase tracking-widest flex items-center space-x-1">
+                <i data-lucide="user" class="w-3 h-3"></i>
+                <span>${note.author}</span>
+              </span>
+              <button onclick="deleteNote(${note.id})" class="text-neutral-400 hover:text-red-500 transition-colors" title="Xóa lời nhắn này">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <p class="text-sm font-medium leading-relaxed font-serif">${note.message}</p>
+          </div>
+          <div class="text-[10px] text-neutral-400 text-right mt-4 font-semibold">${note.date}</div>
+        `;
+        container.appendChild(noteDiv);
+      });
+      lucide.createIcons();
+    }
+
+    function addNote(event) {
+      event.preventDefault();
+      const authorInput = document.getElementById('author');
+      const messageInput = document.getElementById('message');
+
+      const newNote = {
+        id: Date.now(),
+        author: authorInput.value.trim(),
+        message: messageInput.value.trim(),
+        date: new Date().toLocaleDateString('vi-VN'),
+        bg: getRandomNoteBg()
+      };
+
+      notes.unshift(newNote);
+      localStorage.setItem('family_notes', JSON.stringify(notes));
+      
+      authorInput.value = '';
+      messageInput.value = '';
+
+      renderNotes();
+
+      explodeHearts({
+        clientX: window.innerWidth / 2,
+        clientY: window.innerHeight / 2
+      });
+    }
+
+    function deleteNote(id) {
+      notes = notes.filter(note => note.id !== id);
+      localStorage.setItem('family_notes', JSON.stringify(notes));
+      renderNotes();
+    }
+
+    function clearNotes() {
+      if (confirm("Bạn có chắc chắn muốn xóa toàn bộ lời nhắn yêu thương trên bảng tin?")) {
+        notes = [];
+        localStorage.setItem('family_notes', JSON.stringify(notes));
+        renderNotes();
+      }
+    }
+
+    loadNotes();
+  </script>
+</body>
+</html>
