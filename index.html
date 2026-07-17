@@ -964,27 +964,20 @@
     let notes = [];
 
     function loadNotes() {
-      const storedNotes = localStorage.getItem('family_notes');
+      const storedNotes = localStorage.getItem('family_notes_v2');
       if (storedNotes) {
         notes = JSON.parse(storedNotes);
       } else {
         notes = [
           {
             id: 1,
-            author: "Con Út Linh",
-            message: "Chúc Bố Mẹ luôn vui vẻ, tràn đầy sức khỏe. Con yêu Bố Mẹ nhiều lắm! Mong mọi điều bình an luôn đến với gia đình mình.",
-            date: "17/07/2026",
-            bg: "bg-amber-100 dark:bg-amber-50 text-neutral-800"
-          },
-          {
-            id: 2,
-            author: "Anh Hai Minh",
-            message: "Cảm ơn Ba Mẹ đã luôn yêu thương và dìu dắt tụi con lớn khôn. Con chúc Ba Mẹ ngày càng khỏe mạnh và tươi vui mỗi ngày.",
+            author: "con Minh Tuấn",
+            message: "Cảm ơn Bố Mẹ đã luôn yêu thương và dìu dắt tụi con lớn khôn. Con chúc Bố Mẹ ngày càng khỏe mạnh và tươi vui mỗi ngày.",
             date: "17/07/2026",
             bg: "bg-rose-100 dark:bg-rose-50 text-neutral-800"
           }
         ];
-        localStorage.setItem('family_notes', JSON.stringify(notes));
+        localStorage.setItem('family_notes_v2', JSON.stringify(notes));
       }
       renderNotes();
     }
@@ -1053,7 +1046,7 @@
       };
 
       notes.unshift(newNote);
-      localStorage.setItem('family_notes', JSON.stringify(notes));
+      localStorage.setItem('family_notes_v2', JSON.stringify(notes));
       
       authorInput.value = '';
       messageInput.value = '';
@@ -1068,14 +1061,14 @@
 
     function deleteNote(id) {
       notes = notes.filter(note => note.id !== id);
-      localStorage.setItem('family_notes', JSON.stringify(notes));
+      localStorage.setItem('family_notes_v2', JSON.stringify(notes));
       renderNotes();
     }
 
     function clearNotes() {
       if (confirm("Bạn có chắc chắn muốn xóa toàn bộ lời nhắn yêu thương trên bảng tin?")) {
         notes = [];
-        localStorage.setItem('family_notes', JSON.stringify(notes));
+        localStorage.setItem('family_notes_v2', JSON.stringify(notes));
         renderNotes();
       }
     }
