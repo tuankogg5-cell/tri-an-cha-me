@@ -296,17 +296,17 @@
     /* Floating Photos background animation */
     @keyframes floatUp {
       0% {
-        transform: translateY(105vh) rotate(var(--rot));
+        transform: translateY(110vh);
         opacity: 0;
       }
       10% {
-        opacity: 0.25;
+        opacity: 0.55;
       }
       90% {
-        opacity: 0.25;
+        opacity: 0.55;
       }
       100% {
-        transform: translateY(-35vh) rotate(var(--rot));
+        transform: translateY(-120vh);
         opacity: 0;
       }
     }
@@ -1126,23 +1126,27 @@
       if (photoSrcs.length === 0) return;
       
       const photoDiv = document.createElement('div');
-      const rotation = (Math.random() * 30 - 15).toFixed(2); // Random rotate between -15deg and +15deg
-      const size = Math.random() * 50 + 100; // Size between 100px and 150px
-      const leftPos = Math.random() * 85 + 5; // Random left position between 5% and 90%
-      const duration = Math.random() * 12 + 18; // Float duration between 18s and 30s
+      const rotation = (Math.random() * 26 - 13).toFixed(2); // Random rotate between -13deg and +13deg
+      const size = Math.random() * 60 + 110; // Size between 110px and 170px
+      const leftPos = Math.random() * 80 + 5; // Random left position between 5% and 85%
+      const duration = Math.random() * 10 + 20; // Float duration between 20s and 30s
       
-      photoDiv.className = 'floating-photo bg-white dark:bg-neutral-800 p-2 pb-6 shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xs pointer-events-none';
+      photoDiv.className = 'floating-photo pointer-events-none';
       photoDiv.style.width = `${size}px`;
       photoDiv.style.left = `${leftPos}%`;
-      photoDiv.style.setProperty('--rot', `${rotation}deg`);
       photoDiv.style.animation = `floatUp ${duration}s linear forwards`;
+      
+      const innerDiv = document.createElement('div');
+      innerDiv.className = 'bg-white dark:bg-neutral-800 p-2 pb-6 shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xs';
+      innerDiv.style.transform = `rotate(${rotation}deg)`;
       
       const img = document.createElement('img');
       img.src = photoSrcs[photoIndex];
-      img.className = 'w-full h-auto object-cover rounded-2xs filter sepia-[10%]';
+      img.className = 'w-full h-auto object-cover rounded-2xs filter sepia-[5%]';
       img.alt = 'Kỷ niệm gia đình';
       
-      photoDiv.appendChild(img);
+      innerDiv.appendChild(img);
+      photoDiv.appendChild(innerDiv);
       photosContainer.appendChild(photoDiv);
       
       // Cycle index
