@@ -292,6 +292,31 @@
     .glow-border:hover {
       box-shadow: 0 0 25px rgba(184, 80, 66, 0.4);
     }
+
+    /* Floating Photos background animation */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) rotate(var(--rot));
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.25;
+      }
+      90% {
+        opacity: 0.25;
+      }
+      100% {
+        transform: translateY(-35vh) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+    
+    .floating-photo {
+      position: absolute;
+      bottom: 0;
+      z-index: 0;
+      will-change: transform, opacity;
+    }
   </style>
 </head>
 <body class="bg-brand-900 text-gray-100 font-sans transition-colors duration-500 overflow-x-hidden relative">
@@ -304,8 +329,12 @@
     <source src="./cam-on-bo-me.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- NAVIGATION HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-brand-900/80 dark:bg-brand-50/80 backdrop-blur-md border-b border-brand-800/20 dark:border-brand-200/50 transition-all duration-300">
+  <!-- Background Floating Photo Gallery -->
+  <div id="floating-photos-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+  <div class="relative z-10">
+    <!-- NAVIGATION HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-brand-900/80 dark:bg-brand-50/80 backdrop-blur-md border-b border-brand-800/20 dark:border-brand-200/50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-3 group">
         <div class="p-2 bg-brand-500/10 rounded-full group-hover:bg-brand-500/20 transition-all">
@@ -717,6 +746,7 @@
       </p>
     </div>
   </footer>
+  </div>
 
   <!-- SCRIPT LOGIC -->
   <script>
@@ -1071,6 +1101,65 @@
         localStorage.setItem('family_notes_v2', JSON.stringify(notes));
         renderNotes();
       }
+    }
+
+    // FLOATING BACKGROUND PHOTOS LOGIC
+    const photoSrcs = [
+      "./3gai1trai.jpg",
+      "./4.jpg",
+      "./4ae.jpg",
+      "./4gai.jpg",
+      "./bo.jpg",
+      "./conme.jpg",
+      "./gd.jpg",
+      "./me.jpg",
+      "./sn.jpg",
+      "./sn2.jpg",
+      "./tet.jpg",
+      "./tet3.jpg"
+    ];
+    
+    const photosContainer = document.getElementById('floating-photos-container');
+    let photoIndex = 0;
+
+    function spawnPhoto() {
+      if (photoSrcs.length === 0) return;
+      
+      const photoDiv = document.createElement('div');
+      const rotation = (Math.random() * 30 - 15).toFixed(2); // Random rotate between -15deg and +15deg
+      const size = Math.random() * 50 + 100; // Size between 100px and 150px
+      const leftPos = Math.random() * 85 + 5; // Random left position between 5% and 90%
+      const duration = Math.random() * 12 + 18; // Float duration between 18s and 30s
+      
+      photoDiv.className = 'floating-photo bg-white dark:bg-neutral-800 p-2 pb-6 shadow-xl border border-neutral-200/50 dark:border-neutral-700/50 rounded-xs pointer-events-none';
+      photoDiv.style.width = `${size}px`;
+      photoDiv.style.left = `${leftPos}%`;
+      photoDiv.style.setProperty('--rot', `${rotation}deg`);
+      photoDiv.style.animation = `floatUp ${duration}s linear forwards`;
+      
+      const img = document.createElement('img');
+      img.src = photoSrcs[photoIndex];
+      img.className = 'w-full h-auto object-cover rounded-2xs filter sepia-[10%]';
+      img.alt = 'Kỷ niệm gia đình';
+      
+      photoDiv.appendChild(img);
+      photosContainer.appendChild(photoDiv);
+      
+      // Cycle index
+      photoIndex = (photoIndex + 1) % photoSrcs.length;
+      
+      // Remove photo element after animation finishes
+      setTimeout(() => {
+        photoDiv.remove();
+      }, duration * 1000);
+    }
+    
+    // Spawn a new photo every 3.5 seconds
+    setInterval(spawnPhoto, 3500);
+    
+    // Spawn initial photos
+    for (let i = 0; i < 4; i++) {
+      setTimeout(spawnPhoto, i * 1500);
     }
 
     loadNotes();
