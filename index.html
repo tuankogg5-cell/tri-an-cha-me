@@ -300,7 +300,7 @@
   <canvas id="canvas-particles" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
   <!-- BACKGROUND MUSIC (Soothing Lullaby/Acoustic Melody) -->
-  <audio id="bg-music" loop>
+  <audio id="bg-music" autoplay loop>
     <source src="./cam-on-bo-me.mp3" type="audio/mpeg">
   </audio>
 
@@ -736,6 +736,21 @@
 
     // Load music player interaction
     let isMusicPlaying = false;
+
+    function playMusic() {
+      bgMusic.play().then(() => {
+        musicIcon.setAttribute('data-lucide', 'pause');
+        musicIcon.innerHTML = '';
+        musicIcon.classList.remove('fill-white');
+        musicIcon.classList.add('fill-none');
+        vinylDisk.classList.remove('spin-paused');
+        playerStatus.innerText = 'Đang Phát';
+        isMusicPlaying = true;
+        lucide.createIcons();
+      }).catch(err => {
+        console.log("Autoplay blocked by browser. Waiting for user interaction...");
+      });
+    }
     
     function toggleMusic() {
       if (isMusicPlaying) {
@@ -748,23 +763,34 @@
         playerStatus.innerText = 'Đang Tắt';
         isMusicPlaying = false;
       } else {
-        bgMusic.play().then(() => {
-          musicIcon.setAttribute('data-lucide', 'pause');
-          musicIcon.innerHTML = '';
-          musicIcon.classList.remove('fill-white');
-          musicIcon.classList.add('fill-none');
-          vinylDisk.classList.remove('spin-paused');
-          playerStatus.innerText = 'Đang Phát';
-          isMusicPlaying = true;
-        }).catch(err => {
-          console.log("Không thể tự động phát nhạc do tương tác trình duyệt:", err);
-          alert("Nhấp chuột một lần nữa để phát bản nhạc nhẹ nhàng!");
-        });
+        playMusic();
       }
       lucide.createIcons();
     }
 
     vinylPlayer.addEventListener('click', toggleMusic);
+
+    // Try to play immediately when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      // Small timeout to ensure DOM and audio are fully ready
+      setTimeout(() => {
+        playMusic();
+      }, 100);
+      
+      // Fallback: Play on first interaction anywhere on the page
+      const startPlayInteraction = () => {
+        if (!isMusicPlaying) {
+          playMusic();
+        }
+        document.removeEventListener('click', startPlayInteraction);
+        document.removeEventListener('touchstart', startPlayInteraction);
+        document.removeEventListener('scroll', startPlayInteraction);
+      };
+      
+      document.addEventListener('click', startPlayInteraction);
+      document.addEventListener('touchstart', startPlayInteraction);
+      document.addEventListener('scroll', startPlayInteraction);
+    });
 
     // Theme Toggle Logic
     const currentTheme = localStorage.getItem('theme') || 'dark';
