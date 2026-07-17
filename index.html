@@ -302,7 +302,7 @@
       10% {
         opacity: 0.55;
       }
-      95% {
+      98% {
         opacity: 0.55;
       }
       100% {
@@ -560,7 +560,7 @@
   </section>
 
   <!-- 4. DEDICATED TRIBUTE TO FATHER & MOTHER -->
-  <section id="tribute" class="py-24 bg-brand-800/10 dark:bg-brand-50 relative overflow-hidden">
+  <section id="tribute" class="py-24 bg-brand-800/10 dark:bg-brand-50/80 backdrop-blur-md relative overflow-hidden">
     <div class="absolute inset-0 bg-radial-gradient from-brand-500/5 to-transparent pointer-events-none"></div>
 
     <div class="max-w-6xl mx-auto px-6 relative z-10">
@@ -675,7 +675,7 @@
   </section>
 
   <!-- 6. INTERACTIVE LOVE WALL / MESSAGE BOARD -->
-  <section id="message-wall" class="py-24 bg-black/30 dark:bg-brand-50 relative border-t border-brand-800/20 dark:border-brand-200/50">
+  <section id="message-wall" class="py-24 bg-black/30 dark:bg-brand-50/80 backdrop-blur-md relative border-t border-brand-800/20 dark:border-brand-200/50">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16 space-y-4">
         <h2 class="text-3xl md:text-5xl font-bold font-serif text-white dark:text-brand-900">Bảng Tin Yêu Thương</h2>
@@ -1121,14 +1121,23 @@
     
     const photosContainer = document.getElementById('floating-photos-container');
     let photoIndex = 0;
+    
+    // Divide screen into 5 columns to prevent overlaps
+    const columns = [5, 23, 41, 59, 77];
+    let currentColumnIndex = 0;
 
     function spawnPhoto() {
       if (photoSrcs.length === 0) return;
       
       const photoDiv = document.createElement('div');
-      const rotation = (Math.random() * 26 - 13).toFixed(2); // Random rotate between -13deg and +13deg
-      const size = Math.random() * 60 + 110; // Size between 110px and 170px
-      const leftPos = Math.random() * 80 + 5; // Random left position between 5% and 85%
+      const rotation = (Math.random() * 24 - 12).toFixed(2); // Random rotate between -12deg and +12deg
+      const size = Math.random() * 80 + 160; // Larger size: 160px to 240px
+      
+      // Determine left position by cycling columns and adding a small offset
+      const baseLeft = columns[currentColumnIndex];
+      const offset = Math.random() * 6 - 3; // -3% to +3% jitter
+      const leftPos = Math.min(Math.max(baseLeft + offset, 2), 88);
+      
       const duration = Math.random() * 10 + 20; // Float duration between 20s and 30s
       
       photoDiv.className = 'floating-photo pointer-events-none';
@@ -1148,6 +1157,9 @@
       innerDiv.appendChild(img);
       photoDiv.appendChild(innerDiv);
       photosContainer.appendChild(photoDiv);
+      
+      // Cycle column index
+      currentColumnIndex = (currentColumnIndex + 1) % columns.length;
       
       // Cycle index
       photoIndex = (photoIndex + 1) % photoSrcs.length;
