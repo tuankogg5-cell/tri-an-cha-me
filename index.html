@@ -302,11 +302,11 @@
       10% {
         opacity: 0.55;
       }
-      90% {
+      95% {
         opacity: 0.55;
       }
       100% {
-        transform: translateY(-120vh);
+        transform: translateY(-140vh);
         opacity: 0;
       }
     }
@@ -1155,15 +1155,15 @@
       // Remove photo element after animation finishes
       setTimeout(() => {
         photoDiv.remove();
-      }, duration * 1000);
+      }, duration * 1000 + 1500); // Wait 1.5 seconds after animation ends to ensure it's fully off-screen
     }
     
-    // Spawn a new photo every 3.5 seconds
-    setInterval(spawnPhoto, 3500);
+    // Spawn a new photo every 1.5 seconds (more dense)
+    setInterval(spawnPhoto, 1500);
     
     // Spawn initial photos
-    for (let i = 0; i < 4; i++) {
-      setTimeout(spawnPhoto, i * 1500);
+    for (let i = 0; i < 7; i++) {
+      setTimeout(spawnPhoto, i * 600);
     }
 
     loadNotes();
